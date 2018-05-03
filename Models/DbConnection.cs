@@ -148,10 +148,10 @@ namespace NoteBase.Models
 		{
 			try
 			{
-				List<Users> users = await (from user in dbModel.DbSetUsers
+				List<string> usernames = await (from user in dbModel.DbSetUsers
 										   orderby user.Name ascending
-										   select user).ToListAsync();
-				return users;
+										   select user.Name).ToListAsync();
+				return usernames;
 			}
 			catch (Exception e)
 			{

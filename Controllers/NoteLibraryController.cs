@@ -22,6 +22,7 @@ namespace NoteBase.Controllers
         {
             List<SharedNotes> userNotes = await dbConnection.GetUserNotes(User.Identity.Name);
             userNotes = SharedNotes.Distinct(userNotes);
+			userNotes = await SharedNotes.AppendUsernameString(userNotes, dbConnection);
 
             var users = await dbConnection.GetUsers();
             users.RemoveAll(u => u.Name == User.Identity.Name);

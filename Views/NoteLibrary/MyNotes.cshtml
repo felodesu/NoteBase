@@ -61,7 +61,11 @@
                         @note.Note_Content
                     </li>
                     <li>
-                        @note.Shared_To
+                        @foreach (var username in note.Shared_To_Usernames)
+                        {
+                            @username
+
+                        }
                         <button type="button" class="modalShow" value="@note.Note_Id">Share note</button>
                     </li>
                     <li>

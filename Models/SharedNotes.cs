@@ -53,7 +53,7 @@ namespace NoteBase.Models
             return  newList;
         }
 
-		public async Task<List<SharedNotes>> AppendUsernameString (List<SharedNotes> sharedNotes, DbConnection conn)
+		public static async Task<List<SharedNotes>> AppendUsernameString (List<SharedNotes> sharedNotes, DbConnection conn)
 		{
 			if (sharedNotes.Count == 0) return sharedNotes;
 
