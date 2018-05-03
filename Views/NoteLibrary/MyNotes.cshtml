@@ -1,0 +1,108 @@
+﻿@model NoteBase.Models.UsersNotesModel
+@{
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/css/Errors.css" />
+    <link rel="stylesheet" href="~/css/Forms.css" />
+    <link rel="stylesheet" href="~/css/NoteView.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <title>My Notes</title>
+</head>
+<body>
+    <div class="titlebar">
+        <a asp-action="MyNotes">My Notes</a>
+        <a asp-action="ViewSharedNotes">Shared Notes</a>
+    </div>
+    <div class="input-form note-input">
+        <center><h3>Create note</h3></center>
+        <form asp-action="CreateNote" method="post">
+            <p>
+                <label asp-for="Header">Header:</label>
+                <input asp-for="Header" />
+                <br />
+                <span asp-validation-for="Header"></span>
+            </p>
+            <p>
+                <label asp-for="Content">Content:</label>
+                <textarea asp-for="Content"></textarea>
+                <br />
+                <span asp-validation-for="Content"></span>
+            </p>
+            <p>
+                <label asp-for="Timestamp">Date:</label>
+                <input asp-for="Timestamp" type="datetime-local" asp-format="{0:dd/MM/yyyy HH:mm}" />
+                <br />
+                <span asp-validation-for="Timestamp"></span>
+            </p>
+            <button type="submit">Submit note</button>
+        </form>
+    </div>
+    <div>
+        @if (Model.sharedNotes.Count > 0)
+        {
+
+            @foreach (var note in Model.sharedNotes)
+            {
+                <ul class="note-display">
+
+                    <li class="note-timestamp">
+                        @DateTime.FromBinary(note.Note_Timestamp)
+                    </li>
+                    <li class="note-header">
+                        @note.Note_Header
+                    </li>
+                    <li class="note-content">
+                        @note.Note_Content
+                    </li>
+                    <li>
+                        @note.Shared_To
+                        <button type="button" class="modalShow" value="@note.Note_Id">Share note</button>
+                    </li>
+                    <li>
+                        <input id="note-id-container" value="@note.Note_Id" />
+                    </li>
+                </ul>
+
+
+            }
+
+            <div class="modal fade" id="shareModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Share with</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form asp-action="ShareNote" method="post">
+                                <input asp-for="Note_Id" id="note-id-container-modal" />
+                                <fieldset>
+                                    <select name="User_Id" id="user-selector">
+                                        @foreach (var user in ViewBag.Users)
+                                        {
+                                            <option value="@user.User_Id">@user.Name</option>
+                                        }
+                                    </select> 
+                                    <button type="button" id="modalHide" class="modal-btn">Cancel</button><button type="submit" class="modal-btn">Share</button>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+    @section Scripts {
+        <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="~/js/ModalDialog.js"></script>
+    }
+
+</body>
+</html>
+

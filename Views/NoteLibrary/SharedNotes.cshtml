@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/css/Forms.css" />
+    <link rel="stylesheet" href="~/css/NoteView.css" />
+    <title>SharedNotes</title>
+</head>
+<body>
+    <div class="titlebar">
+        <a asp-action="MyNotes">My Notes</a>
+        <a asp-action="ViewSharedNotes">Shared Notes</a>
+    </div>
+    <div>
+        @{
+            if (ViewBag.SharedNotes.Count > 0)
+            {
+
+                foreach (var note in ViewBag.SharedNotes)
+                {
+                    <ul class="note-display">
+
+                        <li class="note-timestamp">
+                            @DateTime.FromBinary(note.Timestamp)
+                        </li>
+                        <li class="note-header">
+                            @note.Header
+                        </li>
+                        <li class="note-content">
+                            @note.Content;
+                        </li>
+                    </ul>
+
+                }
+            }
+
+            else
+            { <h2>No notes shared</h2> }
+        }
+    </div>
+</body>
+</html>

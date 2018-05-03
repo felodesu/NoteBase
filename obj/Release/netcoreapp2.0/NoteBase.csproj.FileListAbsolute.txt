@@ -1,0 +1,12 @@
+C:\Users\felod\source\repos\NoteBase\NoteBase\bin\Release\netcoreapp2.0\NoteBase.deps.json
+C:\Users\felod\source\repos\NoteBase\NoteBase\bin\Release\netcoreapp2.0\NoteBase.runtimeconfig.json
+C:\Users\felod\source\repos\NoteBase\NoteBase\bin\Release\netcoreapp2.0\NoteBase.runtimeconfig.dev.json
+C:\Users\felod\source\repos\NoteBase\NoteBase\bin\Release\netcoreapp2.0\NoteBase.dll
+C:\Users\felod\source\repos\NoteBase\NoteBase\bin\Release\netcoreapp2.0\NoteBase.pdb
+C:\Users\felod\source\repos\NoteBase\NoteBase\obj\Release\netcoreapp2.0\NoteBase.csproj.CoreCompileInputs.cache
+C:\Users\felod\source\repos\NoteBase\NoteBase\obj\Release\netcoreapp2.0\UserSecretsAssemblyInfo.cs
+C:\Users\felod\source\repos\NoteBase\NoteBase\obj\Release\netcoreapp2.0\NoteBase.AssemblyInfoInputs.cache
+C:\Users\felod\source\repos\NoteBase\NoteBase\obj\Release\netcoreapp2.0\NoteBase.AssemblyInfo.cs
+C:\Users\felod\source\repos\NoteBase\NoteBase\obj\Release\netcoreapp2.0\NoteBase.dll
+C:\Users\felod\source\repos\NoteBase\NoteBase\obj\Release\netcoreapp2.0\NoteBase.pdb
+C:\Users\felod\source\repos\NoteBase\NoteBase\obj\Release\netcoreapp2.0\NoteBase.csprojResolveAssemblyReference.cache

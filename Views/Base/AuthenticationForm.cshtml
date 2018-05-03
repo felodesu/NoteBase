@@ -1,0 +1,44 @@
+﻿@model NoteBase.Models.AuthenticationModel
+@{
+    Layout = "_Layout";
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/css/Errors.css" />
+    <link rel="stylesheet" href="~/css/Forms.css" />
+    <title>Log In</title>
+</head>
+<body>
+    <div class="input-form">
+        <form asp-action="AuthenticationForm" method="post">
+            <p>
+                <label asp-for="Login">Login:</label>
+                <input asp-for="Login" />
+                <br />
+                <span asp-validation-for="Login"></span>
+            </p>
+            <p>
+                <label asp-for="Password">Password:</label>
+                <input asp-for="Password" type="password" />
+                <br />
+                <span asp-validation-for="Password"></span>
+            </p>
+
+            <button type="submit">Sign up</button>
+        </form>
+    </div>
+    <br />
+    <div class="footer-link">
+        <a asp-action="Registration">Don't have an account? Click here to register.</a>
+    </div>
+    @section Scripts {
+
+    }
+
+</body>
+</html>

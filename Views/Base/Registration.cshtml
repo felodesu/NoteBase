@@ -1,0 +1,44 @@
+﻿@model NoteBase.Models.RegistrationModel
+@{
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/css/Errors.css" />
+    <link rel="stylesheet" href="~/css/Forms.css" />
+    <title>Registration</title>
+</head>
+<body>
+    <div class="input-form">
+        <form asp-action="Registration" method="post">
+            <p>
+                <label asp-for="Name">Login:</label>
+                <input asp-for="Name" />
+                <br />
+                <span asp-validation-for="Name"></span>
+            </p>
+            <p>
+                <label asp-for="Password">Password:</label>
+                <input asp-for="Password" type="password" />
+                <br />
+                <span asp-validation-for="Password"></span>
+            </p>
+            <p>
+                <label asp-for="ConfirmPassword">Confirm Password:</label>
+                <input asp-for="ConfirmPassword" type="password" />
+                <br />
+                <span asp-validation-for="ConfirmPassword"></span>
+            </p>
+
+            <button type="submit">Register</button>
+        </form>
+    </div>
+    @section Scripts {
+
+    }
+</body>
+</html>

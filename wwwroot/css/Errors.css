@@ -1,0 +1,11 @@
+﻿.input-validation-error {
+    border-color: #ff6262;
+    border-style: solid;
+}
+
+.field-validation-error{
+    font: 12px Arial;
+    float: right;
+    text-align: right;
+    color: #ff6262;
+}
