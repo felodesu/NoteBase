@@ -211,8 +211,7 @@ namespace NoteBase.Models
                                            where (shares == share || (shares.Note_Id == share.Note_Id && shares.User_Id == -1))
                                            select shares)
                                        .SingleOrDefaultAsync();
-                if (existingShare == null) return true;
-                return false;
+                return existingShare == null ? true : false;
             }
             catch (Exception e)
             {
