@@ -42,11 +42,11 @@ namespace NoteBase.Migrations
                 {
                     b.Property<int>("Note_Id");
 
-                    b.Property<int>("Owner_Id");
-
                     b.Property<int>("User_Id");
 
-                    b.HasKey("Note_Id", "Owner_Id");
+                    b.Property<int>("Owner_Id");
+
+                    b.HasKey("Note_Id", "User_Id");
 
                     b.HasIndex("User_Id");
 

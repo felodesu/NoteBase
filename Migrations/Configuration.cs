@@ -8,16 +8,15 @@ namespace NoteBase
     {
         public static void Seed(this DbModel context)
         {
-            Users seedUser = new Users { User_Id = 0, Name = "All" };
             try
             {
                 var hasSeedUser = (from u in context.DbSetUsers
-                                   where u.User_Id == 0
+                                   where u.User_Id == -1
                                    select u).SingleOrDefault();
 
                 if (hasSeedUser == null)
                 {
-                    context.Database.ExecuteSqlCommand("INSERT INTO DbSetUsers VALUES (0, 'All', NULL)");
+                    context.Database.ExecuteSqlCommand("INSERT INTO DbSetUsers VALUES (-1, 'All', NULL)");
                 }
             }
             catch { return;  }

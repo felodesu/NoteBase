@@ -30,7 +30,7 @@ li {
 li:first-child {
     border-top: 1px solid #a5742f;
     border-radius: 5px 5px 0px 0px;
-    padding: 5px 5px 0px 0px;
+    float: left;
 }
 
 li:last-child {
@@ -39,11 +39,9 @@ li:last-child {
 }
 
 .note-timestamp {
-    float: right;
     background-color: #948574;
     text-align: right;
-    padding-right: 20px; 
-    height: 30px;
+    padding: 5px 20px 5px 10px; 
     color: #fff;
 }
 .note-header {
@@ -56,6 +54,15 @@ li:last-child {
     text-align: left;
     height: 100px;
     word-break: break-word;
+}
+
+#owner {
+    float: left;
+    font: bold 14px Tahoma;
+}
+
+#timestamp {
+    float: right;
 }
 
 #note-id-container {

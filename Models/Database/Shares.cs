@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace NoteBase.Models
+﻿namespace NoteBase.Models
 {
     public class Shares
     {

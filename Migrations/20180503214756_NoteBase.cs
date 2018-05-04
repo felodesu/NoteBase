@@ -49,12 +49,12 @@ namespace NoteBase.Migrations
                 columns: table => new
                 {
                     Note_Id = table.Column<int>(nullable: false),
-                    Owner_Id = table.Column<int>(nullable: false),
-                    User_Id = table.Column<int>(nullable: false)
+                    User_Id = table.Column<int>(nullable: false),
+                    Owner_Id = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DbSetShares", x => new { x.Note_Id, x.Owner_Id });
+                    table.PrimaryKey("PK_DbSetShares", x => new { x.Note_Id, x.User_Id });
                     table.ForeignKey(
                         name: "FK_DbSetShares_DbSetNotes_Note_Id",
                         column: x => x.Note_Id,

@@ -10,7 +10,7 @@ using System;
 namespace NoteBase.Migrations
 {
     [DbContext(typeof(DbModel))]
-    [Migration("20180502212624_NoteBase")]
+    [Migration("20180503214756_NoteBase")]
     partial class NoteBase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,11 +43,11 @@ namespace NoteBase.Migrations
                 {
                     b.Property<int>("Note_Id");
 
-                    b.Property<int>("Owner_Id");
-
                     b.Property<int>("User_Id");
 
-                    b.HasKey("Note_Id", "Owner_Id");
+                    b.Property<int>("Owner_Id");
+
+                    b.HasKey("Note_Id", "User_Id");
 
                     b.HasIndex("User_Id");
 

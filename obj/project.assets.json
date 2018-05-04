@@ -13138,23 +13138,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\kdavydova\\.nuget\\packages\\": {},
+    "C:\\Users\\felod\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\kdavydova\\Desktop\\NoteBase\\NoteBase\\NoteBase.csproj",
+      "projectUniqueName": "C:\\Users\\felod\\Documents\\GitHub\\NoteBase\\NoteBase.csproj",
       "projectName": "NoteBase",
-      "projectPath": "C:\\Users\\kdavydova\\Desktop\\NoteBase\\NoteBase\\NoteBase.csproj",
-      "packagesPath": "C:\\Users\\kdavydova\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\kdavydova\\Desktop\\NoteBase\\NoteBase\\obj\\",
+      "projectPath": "C:\\Users\\felod\\Documents\\GitHub\\NoteBase\\NoteBase.csproj",
+      "packagesPath": "C:\\Users\\felod\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\felod\\Documents\\GitHub\\NoteBase\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\kdavydova\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\felod\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

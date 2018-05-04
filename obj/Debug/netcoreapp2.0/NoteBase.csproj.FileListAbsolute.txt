@@ -9,15 +9,28 @@ C:\Users\felod\source\repos\NoteBase\NoteBase\bin\Debug\netcoreapp2.0\NoteBase.p
 C:\Users\felod\source\repos\NoteBase\NoteBase\obj\Debug\netcoreapp2.0\NoteBase.dll
 C:\Users\felod\source\repos\NoteBase\NoteBase\obj\Debug\netcoreapp2.0\NoteBase.pdb
 C:\Users\felod\source\repos\NoteBase\NoteBase\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
-C:\Users\kdavydova\Desktop\NoteBase\NoteBase\bin\Debug\netcoreapp2.0\NoteBase.deps.json
-C:\Users\kdavydova\Desktop\NoteBase\NoteBase\bin\Debug\netcoreapp2.0\NoteBase.runtimeconfig.json
-C:\Users\kdavydova\Desktop\NoteBase\NoteBase\bin\Debug\netcoreapp2.0\NoteBase.runtimeconfig.dev.json
-C:\Users\kdavydova\Desktop\NoteBase\NoteBase\bin\Debug\netcoreapp2.0\NoteBase.dll
-C:\Users\kdavydova\Desktop\NoteBase\NoteBase\bin\Debug\netcoreapp2.0\NoteBase.pdb
-C:\Users\kdavydova\Desktop\NoteBase\NoteBase\obj\Debug\netcoreapp2.0\NoteBase.csprojResolveAssemblyReference.cache
-C:\Users\kdavydova\Desktop\NoteBase\NoteBase\obj\Debug\netcoreapp2.0\NoteBase.csproj.CoreCompileInputs.cache
-C:\Users\kdavydova\Desktop\NoteBase\NoteBase\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
-C:\Users\kdavydova\Desktop\NoteBase\NoteBase\obj\Debug\netcoreapp2.0\NoteBase.AssemblyInfoInputs.cache
-C:\Users\kdavydova\Desktop\NoteBase\NoteBase\obj\Debug\netcoreapp2.0\NoteBase.AssemblyInfo.cs
-C:\Users\kdavydova\Desktop\NoteBase\NoteBase\obj\Debug\netcoreapp2.0\NoteBase.dll
-C:\Users\kdavydova\Desktop\NoteBase\NoteBase\obj\Debug\netcoreapp2.0\NoteBase.pdb
+C:\Users\felod\source\repos\NoteBase\NoteBase\obj\Debug\netcoreapp2.0\NoteBase.csprojResolveAssemblyReference.cache
+C:\Users\felod\source\repos\NoteBase\NoteBase — копия\bin\Debug\netcoreapp2.0\NoteBase.deps.json
+C:\Users\felod\source\repos\NoteBase\NoteBase — копия\bin\Debug\netcoreapp2.0\NoteBase.runtimeconfig.json
+C:\Users\felod\source\repos\NoteBase\NoteBase — копия\bin\Debug\netcoreapp2.0\NoteBase.runtimeconfig.dev.json
+C:\Users\felod\source\repos\NoteBase\NoteBase — копия\bin\Debug\netcoreapp2.0\NoteBase.dll
+C:\Users\felod\source\repos\NoteBase\NoteBase — копия\bin\Debug\netcoreapp2.0\NoteBase.pdb
+C:\Users\felod\source\repos\NoteBase\NoteBase — копия\obj\Debug\netcoreapp2.0\NoteBase.csprojResolveAssemblyReference.cache
+C:\Users\felod\source\repos\NoteBase\NoteBase — копия\obj\Debug\netcoreapp2.0\NoteBase.csproj.CoreCompileInputs.cache
+C:\Users\felod\source\repos\NoteBase\NoteBase — копия\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
+C:\Users\felod\source\repos\NoteBase\NoteBase — копия\obj\Debug\netcoreapp2.0\NoteBase.AssemblyInfoInputs.cache
+C:\Users\felod\source\repos\NoteBase\NoteBase — копия\obj\Debug\netcoreapp2.0\NoteBase.AssemblyInfo.cs
+C:\Users\felod\source\repos\NoteBase\NoteBase — копия\obj\Debug\netcoreapp2.0\NoteBase.dll
+C:\Users\felod\source\repos\NoteBase\NoteBase — копия\obj\Debug\netcoreapp2.0\NoteBase.pdb
+C:\Users\felod\Documents\GitHub\NoteBase\bin\Debug\netcoreapp2.0\NoteBase.deps.json
+C:\Users\felod\Documents\GitHub\NoteBase\bin\Debug\netcoreapp2.0\NoteBase.runtimeconfig.json
+C:\Users\felod\Documents\GitHub\NoteBase\bin\Debug\netcoreapp2.0\NoteBase.runtimeconfig.dev.json
+C:\Users\felod\Documents\GitHub\NoteBase\bin\Debug\netcoreapp2.0\NoteBase.dll
+C:\Users\felod\Documents\GitHub\NoteBase\bin\Debug\netcoreapp2.0\NoteBase.pdb
+C:\Users\felod\Documents\GitHub\NoteBase\obj\Debug\netcoreapp2.0\NoteBase.csprojResolveAssemblyReference.cache
+C:\Users\felod\Documents\GitHub\NoteBase\obj\Debug\netcoreapp2.0\NoteBase.csproj.CoreCompileInputs.cache
+C:\Users\felod\Documents\GitHub\NoteBase\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
+C:\Users\felod\Documents\GitHub\NoteBase\obj\Debug\netcoreapp2.0\NoteBase.AssemblyInfoInputs.cache
+C:\Users\felod\Documents\GitHub\NoteBase\obj\Debug\netcoreapp2.0\NoteBase.AssemblyInfo.cs
+C:\Users\felod\Documents\GitHub\NoteBase\obj\Debug\netcoreapp2.0\NoteBase.dll
+C:\Users\felod\Documents\GitHub\NoteBase\obj\Debug\netcoreapp2.0\NoteBase.pdb

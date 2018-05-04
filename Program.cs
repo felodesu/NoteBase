@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace NoteBase
@@ -19,10 +18,9 @@ namespace NoteBase
                 {
                     scope.ServiceProvider.GetService<Models.DbModel>().Seed();
                 }
-                catch (Exception ex)
+                catch (Exception e)
                 {
-                    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-                    logger.LogError(ex, "An error occurred while seeding the database.");
+                    throw new Exception("Error occured while seeding the database", e);
                 }
             }
 

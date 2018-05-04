@@ -21,15 +21,13 @@ namespace NoteBase.Controllers
         public async Task<IActionResult> MyNotes()
         {
             List<SharedNotes> userNotes = await dbConnection.GetUserNotes(User.Identity.Name);
-            userNotes = SharedNotes.Distinct(userNotes);
-			userNotes = await SharedNotes.AppendUsernameString(userNotes, dbConnection);
 
             var users = await dbConnection.GetUsers();
             users.RemoveAll(u => u.Name == User.Identity.Name);
        
             ViewBag.Users = users;
 
-            return View("MyNotes", new UsersNotesModel { sharedNotes = userNotes});
+            return View("MyNotes", new UsersNotesModel { SharedNotes = userNotes});
         }
 
         [HttpPost]
@@ -45,7 +43,7 @@ namespace NoteBase.Controllers
         [HttpPost]
         public async Task<IActionResult> ShareNote(UsersNotesModel usersNotes)
         {
-            await dbConnection.ShareNote((int)usersNotes.Note_Id, (int)usersNotes.User_Id, User.Identity.Name);
+            await dbConnection.ShareNote((int)usersNotes.Note_Id_ToShare, (int)usersNotes.User_Id, User.Identity.Name);
             return RedirectToAction("MyNotes");
         }
 
@@ -53,7 +51,7 @@ namespace NoteBase.Controllers
         public async Task<IActionResult> ViewSharedNotes()
         {
             ViewBag.SharedNotes = await dbConnection.GetSharedNotes(User.Identity.Name);
-            return View("SharedNotes");
+            return View("MySharedNotes");
         }
 
         public JsonResult CheckDateTimeValid(DateTime Timestamp)

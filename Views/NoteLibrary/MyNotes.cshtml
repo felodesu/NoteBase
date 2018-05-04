@@ -44,10 +44,10 @@
         </form>
     </div>
     <div>
-        @if (Model.sharedNotes.Count > 0)
+        @if (Model.SharedNotes.Count > 0)
         {
 
-            @foreach (var note in Model.sharedNotes)
+            @foreach (var note in Model.SharedNotes)
             {
                 <ul class="note-display">
 
@@ -60,13 +60,22 @@
                     <li class="note-content">
                         @note.Note_Content
                     </li>
-                    <li>
-                        @foreach (var username in note.Shared_To_Usernames)
+                    <li class="shares">
+                        
+                        @if (note.Shared_To_Usernames.Count > 0)
                         {
-                            @username
+                            <span>Shared to: </span>
+
+                            @foreach (var username in note.Shared_To_Usernames)
+                            {
+                               <span>@username.Value</span>
+
+                            }
 
                         }
-                        <button type="button" class="modalShow" value="@note.Note_Id">Share note</button>
+                        else  {
+                            <button type="button" class="modalShow" value="@note.Note_Id">Share note</button>
+                        }
                     </li>
                     <li>
                         <input id="note-id-container" value="@note.Note_Id" />
@@ -84,7 +93,7 @@
                         </div>
                         <div class="modal-body">
                             <form asp-action="ShareNote" method="post">
-                                <input asp-for="Note_Id" id="note-id-container-modal" />
+                                <input asp-for="Note_Id_ToShare" id="note-id-container-modal" />
                                 <fieldset>
                                     <select name="User_Id" id="user-selector">
                                         @foreach (var user in ViewBag.Users)

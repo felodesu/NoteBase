@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
 
 namespace NoteBase.Models
 {
@@ -16,7 +15,7 @@ namespace NoteBase.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Shares>().HasKey(sn => new { sn.Note_Id, sn.Owner_Id });
+            modelBuilder.Entity<Shares>().HasKey(sn => new { sn.Note_Id, sn.User_Id });
         }
     }
 }

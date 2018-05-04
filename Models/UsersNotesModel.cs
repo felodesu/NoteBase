@@ -22,9 +22,9 @@ namespace NoteBase.Models
         [DataType(DataType.DateTime)]
         public DateTime Timestamp { get; set; }
 
-        public int? Note_Id { get; set; }
+        public int? Note_Id_ToShare { get; set; }
         public int? User_Id { get; set; }
 
-        public List<SharedNotes> sharedNotes { get; set; }
+        public List<SharedNotes> SharedNotes { get; set; }
 }
 }
