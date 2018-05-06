@@ -30,6 +30,7 @@ namespace NoteBase
                                                                         options.Password.RequireUppercase = true;
                                                                         options.Password.RequireDigit = true;
                                                                     }).AddEntityFrameworkStores<Models.DbModel>().AddDefaultTokenProviders();
+			services.ConfigureApplicationCookie(options => options.LoginPath = "/Base/Authenticate");
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -51,10 +52,8 @@ namespace NoteBase
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Base}/{action=AuthenticationForm}/{id?}");
+                    template: "{controller=Base}/{action=Authenticate}/{id?}");
             });
-
-			DbConfiguration.Seed(app.ApplicationServices, Configuration).Wait();
         }
     }
 }

@@ -14,7 +14,7 @@ namespace NoteBase
 	{
 		public DbConfiguration(DbContextOptions<DbConfiguration> opts) : base(opts) { }
 
-		public static async Task Seed(IServiceProvider serviceProvider, IConfiguration config)
+		public static async Task Seed(IServiceProvider serviceProvider)
 		{
 			try
 			{

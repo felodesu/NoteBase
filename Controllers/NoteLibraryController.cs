@@ -80,12 +80,15 @@ namespace NoteBase.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ViewSharedNotes()
+        public async Task<IActionResult> ViewSharedNotes(List<SharedNotes> sharedNotes)
         {
-			user = await userManager.GetUserAsync(HttpContext.User);
-			ViewBag.SharedNotes = await dbConnection.GetSharedNotes(user.Id);
+			if (sharedNotes.Count == 0)
+			{
+				user = await userManager.GetUserAsync(HttpContext.User);
+				sharedNotes = await dbConnection.GetSharedNotes(user.Id);
+			}
 
-            return View("MySharedNotes");
+			return View("MySharedNotes", sharedNotes);
         }
 
         public JsonResult CheckDateTimeValid(DateTime Timestamp)

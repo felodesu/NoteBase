@@ -11,7 +11,7 @@ using System;
 namespace NoteBase.Migrations
 {
     [DbContext(typeof(DbModel))]
-    [Migration("20180506191716_NoteBase")]
+    [Migration("20180506205906_NoteBase")]
     partial class NoteBase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

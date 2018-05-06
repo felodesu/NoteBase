@@ -38,8 +38,6 @@ namespace NoteBase.Models
 			}
 		}
 
-
-
 		public async Task<List<SharedNotes>> GetUserNotes(int user_id)
 		{
 			try

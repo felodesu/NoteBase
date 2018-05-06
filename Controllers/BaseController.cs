@@ -22,13 +22,13 @@ namespace NoteBase.Controllers
         }
 
         [HttpGet]       
-        public ViewResult AuthenticationForm()
+        public ViewResult Authenticate()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> AuthenticationForm(AuthenticationModel authenticationResponse)
+        public async Task<IActionResult> Authenticate(AuthenticationModel authenticationResponse)
         {
             if (ModelState.IsValid)
             {
@@ -68,7 +68,7 @@ namespace NoteBase.Controllers
 					IdentityResult result = await userManager.CreateAsync(new Users { UserName = registration.Name }, registration.Password);
 					if (result.Succeeded)
 					{
-						return RedirectToAction("AuthenticationForm");
+						return RedirectToAction("Authenticate");
 
 					}
                 }
