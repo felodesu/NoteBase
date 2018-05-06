@@ -20,15 +20,15 @@
                 foreach (var note in ViewBag.SharedNotes)
                 {
                     <ul class="note-display">
-                        <li class="note-timestamp">
+                        <li class="note-timestamp note-list">
                             <span id="owner">Owner: @note.Owner</span>
-                            <span id="timestamp">@DateTime.FromBinary(note.Note_Timestamp)</span>
+                            <span id="timestamp">@note.Timestamp</span>
                         </li>
-                        <li class="note-header">
-                            @note.Note_Header
+                        <li class="note-header note-list">
+                            @note.Header
                         </li>
-                        <li class="note-content">
-                            @note.Note_Content
+                        <li class="note-content note-list">
+                            @note.Content
                         </li>
                     </ul>
 

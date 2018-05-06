@@ -27,23 +27,28 @@ namespace NoteBase.Controllers
        
             ViewBag.Users = users;
 
-            return View("MyNotes", new UsersNotesModel { SharedNotes = userNotes});
+            return View("MyNotes", new UserNotesModel { SharedNotes = userNotes});
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateNote(UsersNotesModel note)
+        public async Task<IActionResult> CreateNote(UserNotesModel note)
         {
             if (ModelState.IsValid)
             {
-                await dbConnection.CreateNote(new Note { Header = note.Header, Content = note.Content, Timestamp = note.Timestamp.ToBinary() }, User.Identity.Name);
+                await dbConnection.CreateNote(new Note
+                {
+                    Header = note.Header,
+                    Content = note.Content,
+                    Timestamp = note.Timestamp.ToBinary()
+                }, User.Identity.Name);
             }
             return RedirectToAction("MyNotes");
         }
 
         [HttpPost]
-        public async Task<IActionResult> ShareNote(UsersNotesModel usersNotes)
+        public async Task<IActionResult> ShareNote(UserNotesModel usersNotes)
         {
-            await dbConnection.ShareNote((int)usersNotes.Note_Id_ToShare, (int)usersNotes.User_Id, User.Identity.Name);
+            await dbConnection.ShareNote(usersNotes.Note_Id, usersNotes.User_Id, User.Identity.Name);
             return RedirectToAction("MyNotes");
         }
 

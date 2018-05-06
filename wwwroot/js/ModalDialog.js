@@ -8,4 +8,12 @@
     $("#modalHide").click(function () {
         $("#shareModal").modal('hide');
     });
+
+    $("#user-selector").change(function () {
+        var selectedUsers = $(".selectpicker").selectpicker('val');
+        if (selectedUsers.includes("-1")) {
+            $(".selectpicker").selectpicker("deselectAll");
+            $(".selectpicker").selectpicker("val", "-1");
+        }
+    });
 });

@@ -1,14 +1,10 @@
 ﻿using System.Collections.Generic;
+using System;
 
 namespace NoteBase.Models
 {
-    public class SharedNotes 
+    public class SharedNotes : UserNote
     {
-        public int Note_Id { get; set; }
-        public string Note_Header { get; set; }
-        public string Note_Content { get; set; }
-        public long Note_Timestamp { get; set; }
-
         public int Owner_Id { get; set; }
         public string Owner { get; set; }
 

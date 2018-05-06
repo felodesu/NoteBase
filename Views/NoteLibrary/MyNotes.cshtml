@@ -1,4 +1,4 @@
-﻿@model NoteBase.Models.UsersNotesModel
+﻿@model NoteBase.Models.UserNotesModel
 @{
     Layout = "_Layout";
 }
@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="~/css/Forms.css" />
     <link rel="stylesheet" href="~/css/NoteView.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/chosen_v1.8.5/chosen.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-select-1.12.4/css/bootstrap-select.min.css">
+
     <title>My Notes</title>
 </head>
 <body>
@@ -51,34 +54,31 @@
             {
                 <ul class="note-display">
 
-                    <li class="note-timestamp">
-                        @DateTime.FromBinary(note.Note_Timestamp)
+                    <li class="note-timestamp note-list">
+                        @note.Timestamp
                     </li>
-                    <li class="note-header">
-                        @note.Note_Header
+                    <li class="note-header note-list">
+                        @note.Header
                     </li>
-                    <li class="note-content">
-                        @note.Note_Content
+                    <li class="note-content note-list">
+                        @note.Content
                     </li>
-                    <li class="shares">
-                        
+                    <li class="shares note-list">
+
                         @if (note.Shared_To_Usernames.Count > 0)
                         {
                             <span>Shared to: </span>
 
                             @foreach (var username in note.Shared_To_Usernames)
                             {
-                               <span>@username.Value</span>
+                                <span id="user_id" class="@note.Note_Id" value="@username.Key">@username.Value</span>
 
                             }
 
                         }
-                        else  {
+
                             <button type="button" class="modalShow" value="@note.Note_Id">Share note</button>
-                        }
-                    </li>
-                    <li>
-                        <input id="note-id-container" value="@note.Note_Id" />
+
                     </li>
                 </ul>
 
@@ -93,14 +93,16 @@
                         </div>
                         <div class="modal-body">
                             <form asp-action="ShareNote" method="post">
-                                <input asp-for="Note_Id_ToShare" id="note-id-container-modal" />
+                                <input asp-for="Note_Id" id="note-id-container-modal" />
                                 <fieldset>
-                                    <select name="User_Id" id="user-selector">
+                                    <select name="User_Id" id="user-selector" multiple class="selectpicker">
                                         @foreach (var user in ViewBag.Users)
                                         {
+
                                             <option value="@user.User_Id">@user.Name</option>
+
                                         }
-                                    </select> 
+                                    </select>
                                     <button type="button" id="modalHide" class="modal-btn">Cancel</button><button type="submit" class="modal-btn">Share</button>
                                 </fieldset>
                             </form>
@@ -113,7 +115,9 @@
     </div>
     @section Scripts {
         <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="~/lib/chosen_v1.8.5/chosen.jquery.js"></script>
         <script src="~/js/ModalDialog.js"></script>
+        <script src="~/lib/bootstrap-select-1.12.4/js/bootstrap-select.min.js"></script>
     }
 
 </body>

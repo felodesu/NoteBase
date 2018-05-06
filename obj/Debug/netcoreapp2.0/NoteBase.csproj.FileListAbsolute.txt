@@ -29,8 +29,8 @@ C:\Users\felod\Documents\GitHub\NoteBase\bin\Debug\netcoreapp2.0\NoteBase.dll
 C:\Users\felod\Documents\GitHub\NoteBase\bin\Debug\netcoreapp2.0\NoteBase.pdb
 C:\Users\felod\Documents\GitHub\NoteBase\obj\Debug\netcoreapp2.0\NoteBase.csprojResolveAssemblyReference.cache
 C:\Users\felod\Documents\GitHub\NoteBase\obj\Debug\netcoreapp2.0\NoteBase.csproj.CoreCompileInputs.cache
-C:\Users\felod\Documents\GitHub\NoteBase\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
 C:\Users\felod\Documents\GitHub\NoteBase\obj\Debug\netcoreapp2.0\NoteBase.AssemblyInfoInputs.cache
 C:\Users\felod\Documents\GitHub\NoteBase\obj\Debug\netcoreapp2.0\NoteBase.AssemblyInfo.cs
 C:\Users\felod\Documents\GitHub\NoteBase\obj\Debug\netcoreapp2.0\NoteBase.dll
 C:\Users\felod\Documents\GitHub\NoteBase\obj\Debug\netcoreapp2.0\NoteBase.pdb
+C:\Users\felod\Documents\GitHub\NoteBase\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs

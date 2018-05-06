@@ -1,22 +1,16 @@
 ﻿.note-display {
-    background-color: #ffffff;
-    width: 540px;
     margin: auto;
     display: flex;
     justify-content: center;
     flex-direction: column;
-}
-
-ul {
     margin-top: 30px !important;
     list-style-type: none;
-    width: 100%;
-    margin: 0;
+    width: 540px;
     padding: 0;
     background-color: #fff1e2;
 }
 
-li {
+.note-list {
     margin: 0;
     padding: 5px 20px 20px 20px;
     display: inline-block;
@@ -27,15 +21,14 @@ li {
     background-color: #fff;
 }
 
-li:first-child {
+.note-display .note-list:first-child {
     border-top: 1px solid #a5742f;
     border-radius: 5px 5px 0px 0px;
     float: left;
 }
 
-li:last-child {
+.note-display .note-list:last-child {
     border-bottom: 1px solid #a5742f;
-    padding: 0;
 }
 
 .note-timestamp {
@@ -108,4 +101,8 @@ li:last-child {
 
 .titlebar a:hover {
     color: #ffcb79;
+}
+
+.bootstrap-select {
+    width: 100% !important;
 }

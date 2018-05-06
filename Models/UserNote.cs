@@ -1,18 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 
-
 namespace NoteBase.Models
 {
-    public class UsersNotesModel
+    public abstract class UserNote
     {
-        [Required(ErrorMessage ="Add header")]
-        [MaxLength(30, ErrorMessage ="Maximum number of characters is 30")]
+        public int Note_Id { get; set; }
+
+        [Required(ErrorMessage = "Add header")]
+        [MaxLength(30, ErrorMessage = "Maximum number of characters is 30")]
         public string Header { get; set; }
 
-        [Required(ErrorMessage ="Add content")]
+        [Required(ErrorMessage = "Add content")]
         [DataType(DataType.MultilineText)]
         [MaxLength(140, ErrorMessage = "Maximum number of characters is 140")]
         public string Content { get; set; }
@@ -21,10 +21,5 @@ namespace NoteBase.Models
         [Remote(action: "CheckDateTimeValid", controller: "NoteLibrary", ErrorMessage = "Select date and time in the future")]
         [DataType(DataType.DateTime)]
         public DateTime Timestamp { get; set; }
-
-        public int? Note_Id_ToShare { get; set; }
-        public int? User_Id { get; set; }
-
-        public List<SharedNotes> SharedNotes { get; set; }
-}
+    }
 }
