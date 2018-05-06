@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 using NoteBase.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using System.Security.Claims;
 
 namespace NoteBase.Controllers
 {
@@ -14,17 +11,14 @@ namespace NoteBase.Controllers
     {
         private DbConnection dbConnection;
 
-        public BaseController(DbModel dbModel)
+        private UserManager<Users> userManager;
+		private SignInManager<Users> signInManager;
+
+        public BaseController(DbModel dbModel, UserManager<Users> userMng, SignInManager<Users> signInMng)
         {
             dbConnection = new DbConnection(dbModel);
-        }
-
-        private async Task Authenticate(string Name)
-        {
-            var claims = new List<Claim> { new Claim(ClaimsIdentity.DefaultNameClaimType, Name)};
-            ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie");
-
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
+            userManager = userMng;
+			signInManager = signInMng;
         }
 
         [HttpGet]       
@@ -38,8 +32,22 @@ namespace NoteBase.Controllers
         {
             if (ModelState.IsValid)
             {
-                await Authenticate(authenticationResponse.Login);
-                return RedirectToAction("MyNotes", "NoteLibrary", new { area = "" });
+				Users user = await userManager.FindByNameAsync(authenticationResponse.Login);
+				if (user != null)
+				{
+					await signInManager.SignOutAsync();
+					Microsoft.AspNetCore.Identity.SignInResult res = await signInManager.PasswordSignInAsync(authenticationResponse.Login, authenticationResponse.Password, false, false);
+
+					if (res.Succeeded)
+						return RedirectToAction("MyNotes", "NoteLibrary", new { area = "" });
+
+					else ModelState.AddModelError(nameof(AuthenticationModel.Password), "Password is incorrect");
+				}
+				else
+				{
+					ModelState.AddModelError(nameof(AuthenticationModel.Login), "User does not exist");
+				}
+               
             }
             return View();
         }
@@ -55,41 +63,30 @@ namespace NoteBase.Controllers
         {
             if (ModelState.IsValid)
             {
-                await dbConnection.CreateNewUser(new Users { Name = registration.Name, Password = registration.Password });
-                return RedirectToAction("AuthenticationForm");
+				if (await GetUser(registration.Name) == null)
+				{
+					IdentityResult result = await userManager.CreateAsync(new Users { UserName = registration.Name }, registration.Password);
+					if (result.Succeeded)
+					{
+						return RedirectToAction("AuthenticationForm");
+
+					}
+                }
+                else
+                {
+					ModelState.AddModelError(nameof(RegistrationModel.Name), "User already exists");
+					return View();
+				}
             }
 
             return View();
         }
 
-        public JsonResult CheckUserNotExists(string Name)
+        public async Task<Users> GetUser(string Name)
         {
-            if (!dbConnection.CheckUserExists(Name))
-            {
-                return Json(data: true);
-            }
+			Users user = await userManager.FindByNameAsync(Name);
 
-            return Json(data: false);
-        }
-
-        public JsonResult CheckUserExists(string Login)
-        {
-            if (dbConnection.CheckUserExists(Login))
-            {
-                return Json(data: true);
-            }
-
-            return Json(data: false);
-        }
-
-        public JsonResult ValidateUser(string Login, string Password)
-        {
-            if (dbConnection.ValidateUser(new Users { Name = Login, Password = Password }))
-            {
-                return Json(data: true);
-            }
-
-            return Json(data: false);
+			return user;
         }
     }
 }

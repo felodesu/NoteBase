@@ -21,213 +21,127 @@ namespace NoteBase.Models
             dbModel.Dispose();
         }
 
-        //DbSetUsers actions
 
-        public async Task CreateNewUser(Users user)
-        {
-            try
-            {
-                dbModel.DbSetUsers.Add(new Users { Name = user.Name, Password = user.Password });
-                await dbModel.SaveChangesAsync();
-            }
-            catch (Exception e)
-            {
-                throw new DbUpdateException("Error occured while adding user to the database", e);
-            }
-        }
+		////DbSetNotes actions
 
-        public bool CheckUserExists(string name)
-        {
-            try
-            {
-                var queryResult = (from u in dbModel.DbSetUsers
-                                   where u.Name == name
-                                   select u)
-                                   .SingleOrDefault();
-                return queryResult == null ? false : true;
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Error occured on database query", e);
-            }
-        }
+		public async Task CreateNote(Note note)
+		{
+			try
+			{
+				dbModel.DbSetNotes.Add(note);
 
-        public bool ValidateUser(Users user)
-        {
-            try
-            {
-                if (CheckUserExists(user.Name))
-                {
-                    var userPassword = (from u in dbModel.DbSetUsers
-                                        where u.Name == user.Name
-                                        select u.Password)
-                                        .SingleOrDefault();
-
-                    if (userPassword == null) return false;
-
-                    if (userPassword.Equals(user.Password))
-                        return true;
-                }
-                return false;
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Error occured on database query", e);
-            }
-        }
-
-        public async Task<int> GetUserId(string username)
-        {
-            try
-            {
-                int userId = await (from u in dbModel.DbSetUsers
-                                    where u.Name == username
-                                    select u.User_Id)
-                                    .SingleOrDefaultAsync();
-                return userId;
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Error occured on database query", e);
-            }
-        }
-
-        public async Task<List<Users>> GetUsers()
-        {
-            try
-            {
-                List<Users> users = await (from u in dbModel.DbSetUsers
-                                           orderby u.Name ascending
-                                           select u).ToListAsync();
-                return users;
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Error occured on database query", e);
-            }
-        }
-
-        //DbSetNotes actions
-
-        public async Task CreateNote(Note note, string user)
-        {
-            try
-            {
-                note.User_Id = await GetUserId(user);
-                dbModel.DbSetNotes.Add(note);
-
-                await dbModel.SaveChangesAsync();
-            }
-            catch (Exception e)
-            {
-                throw new DbUpdateException("Error occured while adding note to the database", e);
-            }
-        }
+				await dbModel.SaveChangesAsync();
+			}
+			catch (Exception e)
+			{
+				throw new DbUpdateException("Error occured while adding note to the database", e);
+			}
+		}
 
 
 
-        public async Task<List<SharedNotes>> GetUserNotes(string username)
-        {
-            try
-            {
-                int user_id = await GetUserId(username);
-                List<SharedNotes> userNotes = await (from n in dbModel.DbSetNotes
-                                                       where (n.User_Id == user_id)
-                                                       orderby n.Timestamp
-                                                       select new SharedNotes
-                                                       {
-                                                           Note_Id = n.Note_Id,
-                                                           Header = n.Header,
-                                                           Content = n.Content,
-                                                           Timestamp = DateTime.FromBinary(n.Timestamp)
-                                                       })
-                                                       .ToListAsync();
+		public async Task<List<SharedNotes>> GetUserNotes(int user_id)
+		{
+			try
+			{
+				List<SharedNotes> userNotes = await (from n in dbModel.DbSetNotes
+													 where (n.UserId == user_id)
+													 orderby n.Timestamp
+													 select new SharedNotes
+													 {
+														 Note_Id = n.Note_Id,
+														 Header = n.Header,
+														 Content = n.Content,
+														 Timestamp = DateTime.FromBinary(n.Timestamp)
+													 })
+													   .ToListAsync();
 
-                foreach (var note in userNotes)
-                {
-                    note.Shared_To_Usernames = await (from s in dbModel.DbSetShares
-                                                      where (s.Owner_Id == user_id && s.Note_Id == note.Note_Id)
-                                                      select new
-                                                      {
-                                                          s.User.User_Id,
-                                                          s.User.Name
-                                                      })
-                                                      .ToDictionaryAsync(user => user.User_Id, user => user.Name);
-                }
+				if (userNotes != null)
+				{
+					foreach (var note in userNotes)
+					{
+						note.Shared_To_Usernames = await (from s in dbModel.DbSetShares
+														  where (s.Owner_Id == user_id && s.Note_Id == note.Note_Id)
+														  select new
+														  {
+															  s.User.Id,
+															  s.User.UserName
+														  })
+														  .ToDictionaryAsync(user => user.Id, user => user.UserName);
+					}
+				}
 
-                return userNotes;
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Error occured on database query", e);
-            }
-        }
+				return userNotes;
+			}
+			catch (Exception e)
+			{
+				throw new Exception("Error occured on database query", e);
+			}
+		}
 
-        //DbSetShares actions
+		//DbSetShares actions
 
-        public async Task ShareNote(int note_id, List<int> user_id, string owner)
-        {
-            try
-            {
-                int owner_id = await GetUserId(owner);
+		public async Task ShareNote(int note_id, List<int> user_id, int owner_id)
+		{
+			try
+			{
+				var shares = await (from s in dbModel.DbSetShares
+									where (s.Owner_Id == owner_id && s.Note_Id == note_id)
+									select s)
+									.ToListAsync();
 
-                var shares = await (from s in dbModel.DbSetShares
-                                       where (s.Owner_Id == owner_id && s.Note_Id == note_id)
-                                       select s).ToListAsync();
+				if (shares != null)
+				{
+					dbModel.DbSetShares.RemoveRange(shares);
+					await dbModel.SaveChangesAsync();
+				}
+				Shares share;
 
-                dbModel.DbSetShares.RemoveRange(shares);
+				foreach (var user in user_id)
+				{
+					share = new Shares
+					{
+						Owner_Id = owner_id,
+						Note_Id = note_id,
+						UserId = user
+					};
 
-                await dbModel.SaveChangesAsync();
+					dbModel.DbSetShares.Add(share);
+				}
 
-                Shares share;
+				await dbModel.SaveChangesAsync();
 
-                foreach (var user in user_id)
-                {
-                    share = new Shares
-                    {
-                        Owner_Id = owner_id,
-                        Note_Id = note_id,
-                        User_Id = user
-                    };
+			}
+			catch (Exception e)
+			{
+				throw new DbUpdateException("Error occured while adding new share to the database", e);
+			}
+		}
 
-                    dbModel.DbSetShares.Add(share);
-                }
+		public async Task<List<SharedNotes>> GetSharedNotes(int user_id)
+		{
+			try
+			{
+				List<SharedNotes> sharedNotes = await (from shares in dbModel.DbSetShares
+													   join users in dbModel.DbSetUsers on shares.Owner_Id equals users.Id
+													   where ((shares.UserId == user_id || shares.UserId == -1) && shares.Owner_Id != user_id)
+													   orderby shares.Note.Timestamp ascending
+													   select new SharedNotes
+													   {
+														   Note_Id = shares.Note.Note_Id,
+														   Header = shares.Note.Header,
+														   Content = shares.Note.Content,
+														   Timestamp = DateTime.FromBinary(shares.Note.Timestamp),
+														   Owner = users.UserName
+													   })
+													   .ToListAsync();
+				return sharedNotes;
+			}
+			catch (Exception e)
+			{
+				throw new Exception("Error occured on database query", e);
+			}
+		}
 
-                await dbModel.SaveChangesAsync();
-
-            }
-            catch (Exception e)
-            {
-                throw new DbUpdateException("Error occured while adding new share to the database", e);
-            }
-        }
-
-        public async Task<List<SharedNotes>> GetSharedNotes (string user)
-        {
-            try
-            {
-                int user_id = await GetUserId(user);
-
-                List<SharedNotes> sharedNotes = await (from shares in dbModel.DbSetShares
-                                                       join users in dbModel.DbSetUsers on shares.Owner_Id equals users.User_Id
-                                                       where ((shares.User_Id == user_id || shares.User_Id == -1) && shares.Owner_Id != user_id)
-                                                       orderby shares.Note.Timestamp ascending
-                                                       select new SharedNotes
-                                                       {
-                                                           Note_Id = shares.Note.Note_Id,
-                                                           Header = shares.Note.Header,
-                                                           Content = shares.Note.Content,
-                                                           Timestamp = DateTime.FromBinary(shares.Note.Timestamp),
-                                                           Owner = users.Name
-                                                       })
-                                                       .ToListAsync();
-                return sharedNotes;
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Error occured on database query", e);
-            }
-        }
-        
-    }
+	}
 }

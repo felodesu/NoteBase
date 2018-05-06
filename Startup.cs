@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,11 +22,14 @@ namespace NoteBase
         {
             services.AddMvc();
             services.AddDbContext<Models.DbModel>(options => options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => 
-                                                {
-                                                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Base/AuthenticationForm");
-                                                });
-
+            services.AddIdentity<Models.Users, Models.UserRole>( options => 
+                                                                    {
+                                                                        options.Password.RequiredLength = 6;
+                                                                        options.Password.RequireNonAlphanumeric = false;
+                                                                        options.Password.RequireLowercase = true;
+                                                                        options.Password.RequireUppercase = true;
+                                                                        options.Password.RequireDigit = true;
+                                                                    }).AddEntityFrameworkStores<Models.DbModel>().AddDefaultTokenProviders();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -50,6 +53,8 @@ namespace NoteBase
                     name: "default",
                     template: "{controller=Base}/{action=AuthenticationForm}/{id?}");
             });
+
+			DbConfiguration.Seed(app.ApplicationServices, Configuration).Wait();
         }
     }
 }

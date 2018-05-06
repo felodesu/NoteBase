@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 using NoteBase.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace NoteBase.Controllers
 {
@@ -11,19 +13,38 @@ namespace NoteBase.Controllers
     public class NoteLibraryController : Controller
     {
         private DbConnection dbConnection;
+		private UserManager<Users> userManager;
 
-        public NoteLibraryController(DbModel dbModel)
+		private Users user;
+
+		public async Task<Users> GetUser(string Name)
+		{
+			Users user = await userManager.FindByNameAsync(Name);
+
+			return user;
+		}
+
+		public NoteLibraryController(DbModel dbModel, UserManager<Users> userMng)
         {
             dbConnection = new DbConnection(dbModel);
+			userManager = userMng;
         }
 
         [HttpGet]
         public async Task<IActionResult> MyNotes()
         {
-            List<SharedNotes> userNotes = await dbConnection.GetUserNotes(User.Identity.Name);
+			user = await userManager.GetUserAsync(HttpContext.User);
+            List<SharedNotes> userNotes = await dbConnection.GetUserNotes(user.Id);
 
-            var users = await dbConnection.GetUsers();
-            users.RemoveAll(u => u.Name == User.Identity.Name);
+			List<Users> users = (from u in userManager.Users
+						 where u.Id != user.Id
+						 select new Users
+						 {
+							 UserName = u.UserName,
+							 Id = u.Id
+
+						 })
+						 .ToList();
        
             ViewBag.Users = users;
 
@@ -33,29 +54,37 @@ namespace NoteBase.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateNote(UserNotesModel note)
         {
-            if (ModelState.IsValid)
-            {
-                await dbConnection.CreateNote(new Note
-                {
-                    Header = note.Header,
-                    Content = note.Content,
-                    Timestamp = note.Timestamp.ToBinary()
-                }, User.Identity.Name);
-            }
-            return RedirectToAction("MyNotes");
+			if (ModelState.IsValid)
+			{
+				user = await userManager.GetUserAsync(HttpContext.User);
+
+				await dbConnection.CreateNote(new Note
+				{
+					Header = note.Header,
+					Content = note.Content,
+					Timestamp = note.Timestamp.ToBinary(),
+					UserId = user.Id
+
+				});
+			}
+			return RedirectToAction("MyNotes");
         }
 
         [HttpPost]
-        public async Task<IActionResult> ShareNote(UserNotesModel usersNotes)
+        public async Task<IActionResult> ShareNote(UserNotesModel userNotes)
         {
-            await dbConnection.ShareNote(usersNotes.Note_Id, usersNotes.User_Id, User.Identity.Name);
+			user = await userManager.GetUserAsync(HttpContext.User);
+			await dbConnection.ShareNote(userNotes.Note_Id, userNotes.User_Id, user.Id);
+
             return RedirectToAction("MyNotes");
         }
 
         [HttpGet]
         public async Task<IActionResult> ViewSharedNotes()
         {
-            ViewBag.SharedNotes = await dbConnection.GetSharedNotes(User.Identity.Name);
+			user = await userManager.GetUserAsync(HttpContext.User);
+			ViewBag.SharedNotes = await dbConnection.GetSharedNotes(user.Id);
+
             return View("MySharedNotes");
         }
 

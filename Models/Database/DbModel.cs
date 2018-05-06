@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace NoteBase.Models
 {
-    public class DbModel : DbContext
+    public class DbModel : IdentityDbContext<Users, UserRole, int>
     {
         public DbSet<Users> DbSetUsers { get; set; }
         public DbSet<Note> DbSetNotes { get; set; }
@@ -15,7 +16,8 @@ namespace NoteBase.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Shares>().HasKey(sn => new { sn.Note_Id, sn.User_Id });
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Shares>().HasKey(sn => new { sn.Note_Id, sn.UserId });
         }
     }
 }
